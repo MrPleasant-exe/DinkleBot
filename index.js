@@ -4,7 +4,9 @@ const client = new Discord.Client();
 
 
 function timeparse(timestamp){
-  const time = Date.parse(timestamp);
+  let time = Date.parse(timestamp);
+  time = new Date(time);
+  //Format the time here
   return time.getDate() + '/' + time.getMonth() + '/' + time.getYear() + ' ' + time.getHours() + ' : ' + time.getMinutes()
 }
 
@@ -40,7 +42,7 @@ const stringifyRaid = raid =>
 Lobby: https://the100.io/game/${raid.id}
 Name: ${raid.name}
 Game: ${raid.game_name}
-Date: timeparse(${raid.start_time})
+Date: ${timeparse(raid.start_time)}
 Confirmed attendants: ${raid.confirmed_sessions.map(u => u.user.gamertag).join(', ')}`);
 
 const getNextRaid = raids => sortByDate(raids)[0]
