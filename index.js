@@ -6,9 +6,13 @@ const client = new Discord.Client();
 function timeparse(timestamp){
   let time = Date.parse(timestamp);
   time = new Date(time);
+  
   //Format the time here
-  return time.getUTCDate() + '/' + time.getUTCMonth(+1) + '/' + time.getUTCFullYear() 
+
+  const month = time.getMonth() !== 12 ? parseInt(time.getMonth()) + 1 : time.getMonth()
+  return time.getUTCDate() + '/' + month + '/' + time.getUTCFullYear() + '\n**Time**:' + '‏‏‎ ‎‎' + time.getUTCHours() + ':' + time.getUTCMinutes() + time.getUTCSeconds()+ ' ‎‎GMT'
 }
+
 
 const rp = require('request-promise');
 const tokens = require('./conf.json');
@@ -39,11 +43,11 @@ const minutesLeft = raid =>
 const stringifyRaid = raid =>
 (`Your next raid starts in ${minutesLeft(raid)} minutes
 
-Lobby: https://the100.io/game/${raid.id}
-Name: ${raid.name}
-Game: ${raid.game_name}
-Date: ${timeparse(raid.start_time)}
-Confirmed attendants: ${raid.confirmed_sessions.map(u => u.user.gamertag).join(', ')}`);
+**Lobby**: https://the100.io/game/${raid.id}
+**Name**: ${raid.name}
+**Game**: ${raid.game_name}
+**Date**: ${timeparse(raid.start_time)} \n
+**Confirmed attendants**: ${raid.confirmed_sessions.map(u => u.user.gamertag).join(', ')}`);
 
 const getNextRaid = raids => sortByDate(raids)[0]
 
