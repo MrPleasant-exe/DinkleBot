@@ -7,7 +7,7 @@ function timeparse(timestamp){
   let time = Date.parse(timestamp);
   time = new Date(time);
   //Format the time here
-  return time.getDate() + '/' + time.getMonth() + '/' + time.getYear() + ' ' + time.getHours() + ' : ' + time.getMinutes()
+  return time.getUTCDate() + '/' + time.getUTCMonth(+1) + '/' + time.getUTCFullYear() 
 }
 
 const rp = require('request-promise');
